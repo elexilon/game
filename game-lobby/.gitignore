@@ -1,14 +1,13 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/game-lobby/node_modules
-/game-api/node_modules
+/node_modules
 
 # testing
-/game/coverage
+/coverage
 
 # production
-/game-lobby/build
+/build
 
 # misc
 .DS_Store
@@ -20,6 +19,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Compiled CSS
-*.css

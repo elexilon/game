@@ -2,10 +2,13 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { games, users, sessions } = require('./routes')
 const passport = require('./config/auth')
+const http = require('http')
+const socketAuth = require('./config/socket-auth')
+const socketIO = require('socket.io')
+
 var cors = require('cors')
 
 const port = process.env.PORT || 3030
-
 let app = express()
 
 var corsOptions = {
@@ -52,4 +55,13 @@ app
 
   .listen(port, () => {
     console.log(`Server is listening on port ${port}`)
+  })
+  const server = http.Server(app)
+  const io = socketIO(server)
+  
+  io.use(socketAuth);
+
+  io.on('connect', socket => {
+    socket.emit('ping', `Welcome to the server, ${socket.request.user.name}`)
+    console.log(`${socket.request.user.name} connected to the server`)
   })
